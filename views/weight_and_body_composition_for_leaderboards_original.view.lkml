@@ -1,4 +1,4 @@
-view: weight_and_body_composition_for_leaderboards {
+view: weight_and_body_composition_for_leaderboards_original {
   sql_table_name: `sfgiants-analyst.player_summary_reports.weight_and_body_composition_for_leaderboards` ;;
 
   dimension_group: birth {
