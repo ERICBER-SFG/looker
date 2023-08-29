@@ -25,6 +25,8 @@ persist_with: player_summary_reports_default_datagroup
 # Typically, join parameters require that you define the join type, join relationship, and a sql_on clause.
 # Each joined view also needs to define a primary key.
 
+explore: weight_and_body_composition_for_leaderboards_max_dates {}
+
 explore: force_decks_and_performance_for_leaderboard_scatterplots {}
 
 explore: fatigue_scores_workload {}
