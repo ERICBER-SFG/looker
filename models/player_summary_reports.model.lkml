@@ -27,6 +27,17 @@ persist_with: player_summary_reports_default_datagroup
 
 explore: weight_and_body_composition_for_leaderboards_max_dates {}
 
+explore: strength_and_conditioning_weight_and_body_composition_for_leaderboards
+{
+  label: "WBC For Leaderboards Joined"
+  join: weight_and_body_composition_for_leaderboards_max_dates
+  {
+    type: left_outer
+    relationship: many_to_one
+    sql_on: ${strength_and_conditioning_weight_and_body_composition_for_leaderboards.player_code} = ${weight_and_body_composition_for_leaderboards_max_dates.player_code} ;;
+  }
+}
+
 explore: force_decks_and_performance_for_leaderboard_scatterplots {}
 
 explore: fatigue_scores_workload {}
@@ -209,7 +220,7 @@ explore: weight_and_body_composition_consolidated_for_outliers {}
 
 explore: weight_and_body_composition_monthly_rollups {}
 
-explore: strength_and_conditioning_weight_and_body_composition_for_leaderboards {label: "WBC For Leaderboards"}
+# explore: strength_and_conditioning_weight_and_body_composition_for_leaderboards {label: "WBC For Leaderboards"}
 
 explore: weight_and_body_composition_mlb_federated {}
 

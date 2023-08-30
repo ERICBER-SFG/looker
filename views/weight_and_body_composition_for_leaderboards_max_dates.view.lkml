@@ -1,5 +1,12 @@
 view: weight_and_body_composition_for_leaderboards_max_dates {
   sql_table_name: `sfgiants-analyst.player_summary_reports.weight_and_body_composition_for_leaderboards` ;;
+  # derived_table:
+  # {
+  #   sql: SELECT * FROM `sfgiants-analyst.player_summary_reports.weight_and_body_composition_for_leaderboards`
+  #   WHERE test_date >= start_date;;
+  # }
+
+
 
   dimension: player_code {
     type: number
@@ -38,18 +45,46 @@ view: weight_and_body_composition_for_leaderboards_max_dates {
     sql: ${TABLE}.flag_nutrition_concern ;;
   }
 
-  measure: max_date {
+  measure: max_date
+  {
     datatype: date
-    sql: MAX(${TABLE}.test_date);;
+    sql:
+      MAX
+      (
+        CASE
+        WHEN ${TABLE}.test_date >= DATE({% parameter start_date %}) AND ${TABLE}.test_date <= DATE({% parameter end_date %}) THEN ${TABLE}.test_date
+        ELSE NULL END
+      );;
   }
 
-  measure: min_date {
+  measure: min_date
+  {
     datatype: date
-    sql: MIN(${TABLE}.test_date);;
+    sql:
+      MIN
+      (
+        CASE
+        WHEN ${TABLE}.test_date >= DATE({% parameter start_date %}) AND ${TABLE}.test_date <= DATE({% parameter end_date %}) THEN ${TABLE}.test_date
+        ELSE NULL END
+      );;
   }
+
+  # WHERE ${TABLE}.test_date >= ${start_date} AND ${TABLE}.test_date <= ${end_date}
 
   measure: count {
     type: count
     drill_fields: [full_name]
   }
+
+  parameter: start_date {
+    type: date_time
+    description: "Start Date"
+  }
+
+  parameter: end_date {
+    type: date_time
+    description: "End Date"
+  }
+
+
 }
